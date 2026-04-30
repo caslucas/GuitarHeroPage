@@ -4,7 +4,7 @@ export const fetchAlbums = async (): Promise<Album[]> => [
   {
     id: '1',
     title: 'Guitar Hero I',
-    coverImage: "./images/Guitar_Hero_I.png",
+    coverImage: "./images/guitarheroi.png",
     platform: 'PlayStation 2',
     releaseDate: '08/11/2005',
     description: 'O primeiro Guitar Hero.',
@@ -63,7 +63,7 @@ export const fetchAlbums = async (): Promise<Album[]> => [
   {
     id: '2',
     title: 'Guitar Hero II',
-    coverImage: "./images/Guitar_Hero_II.png",
+    coverImage: "./images/guitarheroii.png",
     platform: 'PlayStation 2',
     releaseDate: '07/11/2006',
     description: 'O segundo Guitar Hero.',
@@ -159,7 +159,7 @@ export const fetchAlbums = async (): Promise<Album[]> => [
   {
     id: '3',
     title: 'Guitar Hero III',
-    coverImage: "./images/Guitar_Hero_III.png",
+    coverImage: "./images/guitarheroiii.png",
     platform: 'PlayStation 2',
     releaseDate: '2007-10-28',
     description: 'Lendas do Rock.',
@@ -241,7 +241,7 @@ export const fetchAlbums = async (): Promise<Album[]> => [
   {
     id: '4',
     title: 'Rock Band I',
-    coverImage: "./images/Rock Band I.png",
+    coverImage: "./images/rockbandi.png",
     platform: 'PlayStation 2',
     releaseDate: '2007-10-20',
     description: '',
@@ -323,7 +323,7 @@ export const fetchAlbums = async (): Promise<Album[]> => [
     {
     id: '5',
     title: 'Rock Band II',
-    coverImage: "./images/Rock_Band_II.png",
+    coverImage: "./images/rockbandii.png",
     platform: 'PlayStation 2',
     releaseDate: '2008-09-14',
     description: '',
