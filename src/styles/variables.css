@@ -1,0 +1,9 @@
+:root {
+    --primary-color: #ff5733; /* Example primary color */
+    --secondary-color: #33c1ff; /* Example secondary color */
+    --background-color: #f0f0f0; /* Example background color */
+    --text-color: #333333; /* Example text color */
+    --font-family: 'Arial', sans-serif; /* Example font family */
+    --border-radius: 5px; /* Example border radius */
+    --box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Example box shadow */
+}
