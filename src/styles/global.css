@@ -14,6 +14,28 @@ body {
   justify-content: space-between;
 }
 
+@media (max-width: 600px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px 8px 8px 8px;
+    gap: 12px;
+  }
+  .header-logo {
+    font-size: 2rem;
+    margin-bottom: 4px;
+  }
+  .menu {
+    gap: 16px;
+    width: 100%;
+  }
+  input[type="search"] {
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 8px;
+  }
+}
+
 .header-logo {
   font-size: 2.5rem;
   font-family: 'Impact', 'Arial Black', sans-serif;
@@ -53,6 +75,18 @@ input[type="search"] {
   gap: 24px;
 }
 
+@media (max-width: 900px) {
+  .album-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .album-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .album-card {
   background: #222;
   border-radius: 12px;
@@ -63,6 +97,17 @@ input[type="search"] {
   text-align: center;
   padding: 16px 0 8px 0;
   border: 2px solid transparent;
+}
+
+.album-card {
+  width: 100%;
+  max-width: 320px;
+  margin: 0 auto;
+}
+.album-card img {
+  width: 100%;
+  height: auto;
+  max-width: 180px;
 }
 
 .album-card.selected, .album-card:hover {
@@ -98,6 +143,20 @@ input[type="search"] {
   background: #1a1a1a;
   border-radius: 12px;
   margin: 32px 0;
+}
+
+@media (max-width: 600px) {
+  .album-details {
+    flex-direction: column;
+    padding: 8px;
+  }
+  .track-list th, .track-list td {
+    font-size: 0.95rem;
+    padding: 6px 4px;
+  }
+  .track-list th, .track-list td {
+    white-space: normal;
+  }
 }
 
 .album-details img {

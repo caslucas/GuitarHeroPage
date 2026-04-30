@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import useAlbums from '../hooks/useAlbums';
 import AlbumCard from '../components/AlbumCard';
 import AlbumDetails from '../components/AlbumDetails';
@@ -43,25 +43,43 @@ const AlbumsPage: React.FC<AlbumsPageProps> = ({ search }) => {
       )
     : [];
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error loading albums: {error}</div>;
 
+    //processo Mobile
+      
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 600);
+const detailsRef = useRef<HTMLDivElement>(null);
+
+useEffect(() => {
+  const handleResize = () => setIsMobile(window.innerWidth <= 600);
+  window.addEventListener('resize', handleResize);
+  return () => window.removeEventListener('resize', handleResize);
+}, []);
+
+useEffect(() => {
+  if (isMobile && selectedAlbum && detailsRef.current) {
+    detailsRef.current.scrollIntoView({ behavior: 'smooth' });
+  }
+}, [selectedAlbum, isMobile]);
+
+if (loading) return <div>Loading...</div>;
+if (error) return <div>Error loading albums: {error}</div>;
+
+if (isMobile) {
+  // Layout mobile: detalhes abaixo dos álbuns
   return (
-    <div style={{ display: 'flex', height: 'calc(100vh - 100px)' }}>
-      <div style={{ width: 600, padding: 24, overflowY: 'auto', background: '#18191a' }}>
-        <h2 style={{ color: '#fff', marginBottom: 16 }}>🎸 TODOS OS ÁLBUNS</h2>
-        <div className="album-grid">
-          {filteredAlbums.map(album => (
-            <AlbumCard
-              key={album.id}
-              album={album}
-              selected={selectedAlbum?.id === album.id}
-              onClick={() => setSelectedAlbum(album)}
-            />
-          ))}
-        </div>
+    <div style={{ padding: 16 }}>
+      <h2 style={{ color: '#fff', marginBottom: 16 }}>🎸 TODOS OS ÁLBUNS</h2>
+      <div className="album-grid">
+        {filteredAlbums.map(album => (
+          <AlbumCard
+            key={album.id}
+            album={album}
+            selected={selectedAlbum?.id === album.id}
+            onClick={() => setSelectedAlbum(album)}
+          />
+        ))}
       </div>
-      <div style={{ flex: 1, padding: 32, overflowY: 'auto', background: '#1a1a1a' }}>
+      <div ref={detailsRef}>
         {originalSelectedAlbum && (
           <AlbumDetails album={originalSelectedAlbum} tracks={filteredTracks} />
         )}
@@ -69,6 +87,32 @@ const AlbumsPage: React.FC<AlbumsPageProps> = ({ search }) => {
       </div>
     </div>
   );
+}
+
+// Layout desktop: lado a lado
+return (
+  <div style={{ display: 'flex', height: 'calc(100vh - 100px)' }}>
+    <div style={{ width: 600, padding: 24, overflowY: 'auto', background: '#18191a' }}>
+      <h2 style={{ color: '#fff', marginBottom: 16 }}>🎸 TODOS OS ÁLBUNS</h2>
+      <div className="album-grid">
+        {filteredAlbums.map(album => (
+          <AlbumCard
+            key={album.id}
+            album={album}
+            selected={selectedAlbum?.id === album.id}
+            onClick={() => setSelectedAlbum(album)}
+          />
+        ))}
+      </div>
+    </div>
+    <div style={{ flex: 1, padding: 32, overflowY: 'auto', background: '#1a1a1a' }}>
+      {originalSelectedAlbum && (
+        <AlbumDetails album={originalSelectedAlbum} tracks={filteredTracks} />
+      )}
+      {!originalSelectedAlbum && <div style={{ color: '#fff' }}>Nenhuma música encontrada.</div>}
+    </div>
+  </div>
+);
 };
 
 export default AlbumsPage;

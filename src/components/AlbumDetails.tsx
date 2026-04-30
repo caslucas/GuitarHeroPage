@@ -1,9 +1,9 @@
 import React from 'react';
-import { Album, Track } from '../types/Album'; // Importe Track também
+import { Album, Track } from '../types/Album';
 
 interface AlbumDetailsProps {
   album: Album;
-  tracks: Track[]; // Use Track[] aqui
+  tracks: Track[];
 }
 
 const AlbumDetails: React.FC<AlbumDetailsProps> = ({ album, tracks }) => {
@@ -13,20 +13,39 @@ const AlbumDetails: React.FC<AlbumDetailsProps> = ({ album, tracks }) => {
     month: '2-digit',
     year: 'numeric',
   });
+
+  // Detecta mobile
+  const isMobile = window.innerWidth <= 600;
+
   return (
     <div className="album-details">
       <div>
         <img src={album.coverImage} alt={album.title} />
       </div>
-      <div style={{ marginLeft: 32 }}>
-        <h2>{album.title} <span style={{ color: '#bbb' }}>({year})</span></h2>
-        <p><b>Plataforma:</b> {album.platform}</p>
-        <p><b>Lançamento:</b> {formatter.format(new Date(album.releaseDate))}</p>
+      <div style={{ marginLeft: isMobile ? 0 : 32 }}>
+        <h2>
+          {album.title} <span style={{ color: '#bbb' }}>({year})</span>
+        </h2>
+        <p>
+          <b>Plataforma:</b> {album.platform}
+        </p>
+        <p>
+          <b>Lançamento:</b> {formatter.format(new Date(album.releaseDate))}
+        </p>
         <p>{album.description}</p>
         <h3 style={{ marginTop: 24 }}>🎵 MÚSICAS DO ÁLBUM</h3>
-        <div style={{ marginTop: -23, color: '#ffb300', marginLeft: 'auto', width: 'fit-content' }}>
-          <b>🎸 Total de músicas: {tracks.length}</b>
-        </div>
+        {isMobile && (
+          <div
+            style={{
+              margin: '8px 0 16px 0',
+              color: '#ffb300',
+              width: 'fit-content',
+              fontWeight: 'bold',
+            }}
+          >
+            🎸 Total de músicas: {tracks.length}
+          </div>
+        )}
         <table className="track-list">
           <thead>
             <tr>
@@ -49,6 +68,19 @@ const AlbumDetails: React.FC<AlbumDetailsProps> = ({ album, tracks }) => {
             ))}
           </tbody>
         </table>
+        {!isMobile && (
+          <div
+            style={{
+              marginTop: -23,
+              color: '#ffb300',
+              marginLeft: 'auto',
+              width: 'fit-content',
+              fontWeight: 'bold',
+            }}
+          >
+            🎸 Total de músicas: {tracks.length}
+          </div>
+        )}
       </div>
     </div>
   );
