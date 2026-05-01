@@ -370,3 +370,48 @@ height: 150px;
   padding: 0 !important;
   border-radius: 0 !important;
 }
+
+.search-bar input[type="search"] {
+  appearance: none;
+  -webkit-appearance: none;
+}
+.search-bar input[type="search"]::-webkit-search-clear-button {
+  display: none;
+}
+.search-bar input[type="search"]::-ms-clear {
+  display: none;
+}
+.search-bar input[type="search"]::-o-clear {
+  display: none;
+}
+.search-bar input[type="search"]::-moz-clear {
+  display: none;
+}
+.clear-btn {
+  background: none;
+  border: none;
+  color: rgba(255, 179, 0, 0.7); /* laranja opaco */
+  font-size: 1.5rem;
+  cursor: pointer;
+  margin-left: 4px;
+  line-height: 1;
+  padding: 0;
+}
+
+.album-details {
+  overflow-y: auto;
+  /* ...outros estilos... */
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ffb300;         /* Cor do "puxador" */
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #222;            /* Cor do fundo da barra */
+}

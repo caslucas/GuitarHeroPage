@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Album, Track } from '../types/Album';
 
 interface AlbumDetailsProps {
@@ -17,8 +17,11 @@ const AlbumDetails: React.FC<AlbumDetailsProps> = ({ album, tracks }) => {
   // Detecta mobile
   const isMobile = window.innerWidth <= 600;
 
+
+  
+
   return (
-    <div className="album-details">
+    <div  className="album-details">
       <div>
         <img src={album.coverImage} alt={album.title} />
       </div>
@@ -82,7 +85,7 @@ const AlbumDetails: React.FC<AlbumDetailsProps> = ({ album, tracks }) => {
             ))}
           </tbody>
         </table>
-        
+    
       </div>
     </div>
   );
