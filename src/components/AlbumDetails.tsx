@@ -47,6 +47,19 @@ const AlbumDetails: React.FC<AlbumDetailsProps> = ({ album, tracks }) => {
             🎸 Total de músicas: {tracks.length}
           </div>
         )}
+        {!isMobile && (
+          <div 
+           style={{
+              marginTop: -23,
+              color: '#ffb300',
+              marginLeft: 'auto',
+              width: 'fit-content',
+              fontWeight: 'bold',
+            }}
+          >
+            🎸 Total de músicas: {tracks.length}
+          </div>
+        )}
         <table className="track-list">
           <thead>
             <tr>
@@ -69,19 +82,7 @@ const AlbumDetails: React.FC<AlbumDetailsProps> = ({ album, tracks }) => {
             ))}
           </tbody>
         </table>
-        {!isMobile && (
-          <div 
-            style={{
-              margin: '8px 0 16px 0',
-              color: '#ffb300',
-              marginLeft: 'auto',
-              width: 'fit-content',
-              fontWeight: 'bold',
-            }}
-          >
-            🎸 Total de músicas: {tracks.length}
-          </div>
-        )}
+        
       </div>
     </div>
   );
