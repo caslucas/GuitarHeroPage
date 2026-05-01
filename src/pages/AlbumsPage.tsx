@@ -39,6 +39,7 @@ const AlbumsPage: React.FC<AlbumsPageProps> = ({ search }) => {
   }, [search, albums]);
 
   const originalSelectedAlbum = albums.find(a => a.id === selectedAlbum?.id) || null;
+const totalMusicas = filteredAlbums.reduce((acc, album) => acc + album.tracks.length, 0);
 
   const filteredTracks = originalSelectedAlbum
     ? originalSelectedAlbum.tracks.filter(track =>
@@ -102,8 +103,6 @@ const AlbumsPage: React.FC<AlbumsPageProps> = ({ search }) => {
   }, [isMobile]);
 
 
-  
-
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error loading albums: {error}</div>;
 
@@ -112,6 +111,12 @@ const AlbumsPage: React.FC<AlbumsPageProps> = ({ search }) => {
     return (
       <div style={{ padding: 16 }}>
         <h2 style={{ color: '#fff', marginBottom: 16 }}>🎸 TODOS OS ÁLBUNS ({filteredAlbums.length}) </h2>
+        <div style={{
+  color: '#ffb300',
+  fontWeight: 'bold',
+  marginBottom: 16
+}}>
+  🎵 Total de músicas: {totalMusicas}</div>
         <div ref={tableRef} className="album-grid">
           {filteredAlbums.map(album => (
             <AlbumCard
@@ -172,6 +177,12 @@ const AlbumsPage: React.FC<AlbumsPageProps> = ({ search }) => {
         style={{ width: 600, padding: 24, overflowY: 'auto', background: '#18191a' }}
       >
         <h2 style={{ color: '#fff', marginBottom: 16 }}>🎸 TODOS OS ÁLBUNS ({filteredAlbums.length})</h2>
+                <div style={{
+  color: '#ffb300',
+  fontWeight: 'bold',
+  marginBottom: 16
+}}>
+  🎵 Total de músicas: {totalMusicas}</div>
         <div className="album-grid">
           {filteredAlbums.map(album => (
             <AlbumCard
