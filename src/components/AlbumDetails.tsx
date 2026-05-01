@@ -35,9 +35,10 @@ const AlbumDetails: React.FC<AlbumDetailsProps> = ({ album, tracks }) => {
         <p>{album.description}</p>
         <h3 style={{ marginTop: 24 }}>🎵 MÚSICAS DO ÁLBUM</h3>
         {isMobile && (
-          <div
+          <div 
+          className="total-musicas-mobile"
             style={{
-              margin: '8px 0 16px 0',
+              margin: '16px 0 16px 0',
               color: '#ffb300',
               width: 'fit-content',
               fontWeight: 'bold',
@@ -69,9 +70,9 @@ const AlbumDetails: React.FC<AlbumDetailsProps> = ({ album, tracks }) => {
           </tbody>
         </table>
         {!isMobile && (
-          <div
+          <div 
             style={{
-              marginTop: -23,
+              margin: '8px 0 16px 0',
               color: '#ffb300',
               marginLeft: 'auto',
               width: 'fit-content',

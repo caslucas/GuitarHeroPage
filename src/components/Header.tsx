@@ -6,7 +6,7 @@ const Header: React.FC<{ onSearch: (value: string) => void }> = ({ onSearch }) =
     <nav className="menu">
       <a className="active" href="#">Álbuns</a>
     </nav>
-    <input type="search" placeholder="Buscar música..."  onChange={e => onSearch(e.target.value)}/>
+    <input type="search" placeholder="Buscar música ou artista..."  onChange={e => onSearch(e.target.value)}/>
   </header>
 );
 

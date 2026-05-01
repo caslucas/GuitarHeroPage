@@ -12,16 +12,24 @@ const AlbumsPage: React.FC<AlbumsPageProps> = ({ search }) => {
   const { albums, loading, error } = useAlbums();
   const [selectedAlbum, setSelectedAlbum] = useState<Album | null>(null);
 
+  function normalize(str: string) {
+  return str
+    .normalize('NFD') // separa acentos das letras
+    .replace(/[\u0300-\u036f]/g, '') // remove acentos
+    .replace(/[^a-zA-Z0-9 ]/g, '') // remove caracteres especiais
+    .toLowerCase();
+}
+
   // Filtra álbuns que possuem pelo menos uma música que bate com o filtro
-  const filteredAlbums = albums
-    .map(album => ({
-      ...album,
-      tracks: album.tracks.filter(track =>
-        track.title.toLowerCase().includes(search.toLowerCase()) ||
-        track.artist.toLowerCase().includes(search.toLowerCase())
-      )
-    }))
-    .filter(album => album.tracks.length > 0);
+const filteredAlbums = albums
+  .map(album => ({
+    ...album,
+    tracks: album.tracks.filter(track =>
+      normalize(track.title).includes(normalize(search)) ||
+      normalize(track.artist).includes(normalize(search))
+    )
+  }))
+  .filter(album => album.tracks.length > 0);
 
   // Sempre mantenha selectedAlbum como referência ao álbum original
   useEffect(() => {
@@ -36,18 +44,19 @@ const AlbumsPage: React.FC<AlbumsPageProps> = ({ search }) => {
   const originalSelectedAlbum = albums.find(a => a.id === selectedAlbum?.id) || null;
 
   // Calcule as músicas filtradas
-  const filteredTracks = originalSelectedAlbum
-    ? originalSelectedAlbum.tracks.filter(track =>
-        track.title.toLowerCase().includes(search.toLowerCase()) ||
-        track.artist.toLowerCase().includes(search.toLowerCase())
-      )
-    : [];
+const filteredTracks = originalSelectedAlbum
+  ? originalSelectedAlbum.tracks.filter(track =>
+      normalize(track.title).includes(normalize(search)) ||
+      normalize(track.artist).includes(normalize(search))
+    )
+  : [];
 
 
     //processo Mobile
       
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 600);
 const detailsRef = useRef<HTMLDivElement>(null);
+const [albumChosen, setAlbumChosen] = useState(false);
 
 useEffect(() => {
   const handleResize = () => setIsMobile(window.innerWidth <= 600);
@@ -56,10 +65,10 @@ useEffect(() => {
 }, []);
 
 useEffect(() => {
-  if (isMobile && selectedAlbum && detailsRef.current) {
+  if (isMobile && selectedAlbum && detailsRef.current && albumChosen) {
     detailsRef.current.scrollIntoView({ behavior: 'smooth' });
   }
-}, [selectedAlbum, isMobile]);
+}, [selectedAlbum, isMobile, albumChosen]);
 
 if (loading) return <div>Loading...</div>;
 if (error) return <div>Error loading albums: {error}</div>;
@@ -75,7 +84,10 @@ if (isMobile) {
             key={album.id}
             album={album}
             selected={selectedAlbum?.id === album.id}
-            onClick={() => setSelectedAlbum(album)}
+            onClick={() => {
+    setSelectedAlbum(album);
+    setAlbumChosen(true);
+  }}
           />
         ))}
       </div>

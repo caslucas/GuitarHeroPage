@@ -5,6 +5,7 @@ export interface Track {
  // duration: string;
   ano: string;
   versao: string;
+
 }
 
 export interface Album {

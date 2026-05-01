@@ -199,3 +199,83 @@ input[type="search"] {
 h2, h3 {
   margin: 0;
 }
+
+@media (max-width: 600px) {
+  body,
+  .header,
+  .album-details,
+  .album-grid {
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+  }
+  .album-details {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (max-width: 600px) {
+.track-list {
+font-size: 0.92rem;
+width: 100%;
+margin-left: auto;
+margin-right: auto;
+}
+.track-list th, .track-list td {
+padding: 7px 4px;
+font-size: 0.92rem;
+}
+.album-details img {
+width: 150px;
+height: 150px;
+}
+}
+
+@media (max-width: 600px) {
+  /* Centraliza o título "Álbuns" */
+  .menu {
+    justify-content: center !important;
+    text-align: center !important;
+    width: 100%;
+  }
+
+    /* Centraliza o total de músicas */
+  .total-musicas, .total-musicas-mobile {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    width: fit-content;
+    font-size: 1rem;
+  }
+
+  /* Diminui o campo de pesquisa e alinha ao lado do menu */
+  .header-search-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 0;
+  }
+  input[type="search"] {
+    width: 60vw;
+    min-width: 120px;
+    max-width: 240px;
+    font-size: 0.95rem;
+    margin-top: 0;
+  }
+
+  @media (max-width: 600px) {
+  .total-musicas-mobile {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: center !important;
+    display: block;
+    width: fit-content;
+    font-size: 1rem;
+  }
+}
+}
