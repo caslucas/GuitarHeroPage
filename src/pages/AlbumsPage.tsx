@@ -57,6 +57,8 @@ const filteredTracks = originalSelectedAlbum
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 600);
 const detailsRef = useRef<HTMLDivElement>(null);
 const [albumChosen, setAlbumChosen] = useState(false);
+const [showScrollTop, setShowScrollTop] = useState(false);
+const tableRef = useRef<HTMLDivElement>(null);
 
 useEffect(() => {
   const handleResize = () => setIsMobile(window.innerWidth <= 600);
@@ -70,6 +72,23 @@ useEffect(() => {
   }
 }, [selectedAlbum, isMobile, albumChosen]);
 
+useEffect(() => {
+  if (!isMobile) return;
+
+  const handleScroll = () => {
+    if (tableRef.current) {
+      const rect = tableRef.current.getBoundingClientRect();
+      // Só mostra o botão se ALGUMA PARTE da tabela estiver visível na tela
+      setShowScrollTop(rect.top < window.innerHeight && rect.bottom < 0);
+    }
+  };
+
+  window.addEventListener('scroll', handleScroll);
+  handleScroll();
+
+  return () => window.removeEventListener('scroll', handleScroll);
+}, [isMobile]);
+
 if (loading) return <div>Loading...</div>;
 if (error) return <div>Error loading albums: {error}</div>;
 
@@ -77,9 +96,9 @@ if (isMobile) {
   // Layout mobile: detalhes abaixo dos álbuns
   return (
     <div style={{ padding: 16 }}>
-      <h2 style={{ color: '#fff', marginBottom: 16 }}>🎸 TODOS OS ÁLBUNS {'(' + albums.length + ')'} </h2>
-      
-      <div className="album-grid">
+      <h2 style={{ color: '#fff', marginBottom: 16 }}>🎸 TODOS OS ÁLBUNS ({filteredAlbums.length}) </h2>
+
+      <div ref={tableRef} className="album-grid">
         {filteredAlbums.map(album => (
           <AlbumCard
           
@@ -98,6 +117,35 @@ if (isMobile) {
           <AlbumDetails album={originalSelectedAlbum} tracks={filteredTracks} />
         )}
         {!originalSelectedAlbum && <div style={{ color: '#fff' }}>Nenhuma música encontrada.</div>}
+        {showScrollTop && (
+  <button
+    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+    style={{
+      position: 'fixed',
+      right: 5,
+      bottom: 32,
+      zIndex: 1000,
+      background: 'rgba(0,0,0,0.5)', // opaco
+      color: '#222',
+      border: 'none',
+      borderRadius: '50%',
+      width: 48,
+      height: 48,
+      boxShadow: '0 2px 8px #0006',
+      fontSize: 24,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      cursor: 'pointer',
+      transition: 'opacity 0.2s'
+    }}
+    aria-label="Voltar ao topo"
+  >
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255, 179, 0, 0.7)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="18 15 12 9 6 15" />
+    </svg>
+  </button>
+)}
       </div>
     </div>
   );
@@ -107,7 +155,7 @@ if (isMobile) {
 return (
   <div style={{ display: 'flex', height: 'calc(100vh - 100px)' }}>
     <div style={{ width: 600, padding: 24, overflowY: 'auto', background: '#18191a' }}>
-      <h2 style={{ color: '#fff', marginBottom: 16 }}>🎸 TODOS OS ÁLBUNS {'(' + albums.length + ')'}</h2>
+      <h2 style={{ color: '#fff', marginBottom: 16 }}>🎸 TODOS OS ÁLBUNS ({filteredAlbums.length})</h2>
       <div className="album-grid">
         {filteredAlbums.map(album => (
           <AlbumCard
@@ -124,6 +172,35 @@ return (
         <AlbumDetails album={originalSelectedAlbum} tracks={filteredTracks} />
       )}
       {!originalSelectedAlbum && <div style={{ color: '#fff' }}>Nenhuma música encontrada.</div>}
+       {showScrollTop && (
+  <button
+    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+    style={{
+      position: 'fixed',
+      right: 5,
+      bottom: 32,
+      zIndex: 1000,
+      background: 'rgba(0,0,0,0.5)', // opaco
+      color: '#222',
+      border: 'none',
+      borderRadius: '50%',
+      width: 48,
+      height: 48,
+      boxShadow: '0 2px 8px #0006',
+      fontSize: 24,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      cursor: 'pointer',
+      transition: 'opacity 0.2s'
+    }}
+    aria-label="Voltar ao topo"
+  >
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255, 179, 0, 0.7)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="18 15 12 9 6 15" />
+    </svg>
+  </button>
+)}
     </div>
   </div>
 );
