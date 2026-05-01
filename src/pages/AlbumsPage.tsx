@@ -77,10 +77,12 @@ if (isMobile) {
   // Layout mobile: detalhes abaixo dos álbuns
   return (
     <div style={{ padding: 16 }}>
-      <h2 style={{ color: '#fff', marginBottom: 16 }}>🎸 TODOS OS ÁLBUNS</h2>
+      <h2 style={{ color: '#fff', marginBottom: 16 }}>🎸 TODOS OS ÁLBUNS <div>{albums.length}</div> </h2>
+      
       <div className="album-grid">
         {filteredAlbums.map(album => (
           <AlbumCard
+          
             key={album.id}
             album={album}
             selected={selectedAlbum?.id === album.id}
@@ -105,7 +107,7 @@ if (isMobile) {
 return (
   <div style={{ display: 'flex', height: 'calc(100vh - 100px)' }}>
     <div style={{ width: 600, padding: 24, overflowY: 'auto', background: '#18191a' }}>
-      <h2 style={{ color: '#fff', marginBottom: 16 }}>🎸 TODOS OS ÁLBUNS</h2>
+      <h2 style={{ color: '#fff', marginBottom: 16 }}>🎸 TODOS OS ÁLBUNS {'(' + albums.length + ')'}</h2>
       <div className="album-grid">
         {filteredAlbums.map(album => (
           <AlbumCard
