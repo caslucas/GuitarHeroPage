@@ -14,36 +14,7 @@ const Header: React.FC<{ onSearch: (value: string) => void }> = ({ onSearch }) =
   if (isMobile) {
     return (
       <header className="header-mobile">
-        <div className="header-logo">Guitar Hero</div>
-        <nav className="menu-tabs">
-          <a className="menu-tab active" href="#">Álbuns</a>
-          
-        </nav>
-<div className="search-bar">
-  <span className="icon">🔍</span>
-  <input
-    type="search"
-    placeholder="Buscar músicas ou artistas..."
-    value={searchValue}
-    onChange={e => {
-      setSearchValue(e.target.value);
-      onSearch(e.target.value);
-    }}
-  />
-  {searchValue && (
-    <button
-      type="button"
-      className="clear-btn"
-      onClick={() => {
-        setSearchValue('');
-        onSearch('');
-      }}
-      aria-label="Limpar busca"
-    >
-      ×
-    </button>
-  )}
-</div>
+    
         
       </header>
     );

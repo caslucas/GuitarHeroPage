@@ -6,9 +6,10 @@ import { Album } from '../types/Album';
 
 interface AlbumsPageProps {
   search: string;
+  onSearch (value: string): void;
 }
 
-const AlbumsPage: React.FC<AlbumsPageProps> = ({ search }) => {
+const AlbumsPage: React.FC<AlbumsPageProps> = ({ onSearch,search }) => {
   const { albums, loading, error } = useAlbums();
   const [selectedAlbum, setSelectedAlbum] = useState<Album | null>(null);
 
@@ -101,7 +102,7 @@ const totalMusicas = filteredAlbums.reduce((acc, album) => acc + album.tracks.le
       }
     };
   }, [isMobile]);
-
+ const [searchValue, setSearchValue] = useState('');
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error loading albums: {error}</div>;
@@ -110,12 +111,33 @@ const totalMusicas = filteredAlbums.reduce((acc, album) => acc + album.tracks.le
   if (isMobile) {
     return (
       <div style={{ padding: 16 }}>
+        <div className="search-bar">
+  <span className="icon">🔍</span>
+  <input
+    type="search"
+    placeholder="Buscar músicas ou artistas..."
+    value={searchValue}
+    onChange={e => {
+      setSearchValue(e.target.value);
+      onSearch(e.target.value);
+    }}
+  />
+  {searchValue && (
+    <button
+      type="button"
+      className="clear-btn"
+      onClick={() => {
+        setSearchValue('');
+        onSearch('');
+      }}
+      aria-label="Limpar busca"
+    >
+      ×
+    </button>
+  )}
+</div>
         <h2 style={{ color: '#fff', marginBottom: 16 }}>🎸 TODOS OS ÁLBUNS ({filteredAlbums.length}) </h2>
-        <div style={{
-  color: '#ffb300',
-  fontWeight: 'bold',
-  marginBottom: 16
-}}>
+        <div style={{color: '#ffb300',fontWeight: 'bold', marginBottom: 16}}>
   🎵 Total de músicas: {totalMusicas}</div>
         <div ref={tableRef} className="album-grid">
           {filteredAlbums.map(album => (

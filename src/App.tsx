@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Header from './components/Header';
 import AlbumsPage from './pages/AlbumsPage';
-import './styles/global.css';
 import SongFilter from './components/SongFilter';
 
 const App: React.FC = () => {
@@ -10,7 +9,7 @@ const App: React.FC = () => {
     <>
 
     <Header onSearch={setSearch} />
-    <AlbumsPage search={search} />
+    <AlbumsPage onSearch={setSearch} search={search} />
   </>
 );
 };
