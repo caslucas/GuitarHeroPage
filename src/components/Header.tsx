@@ -21,11 +21,9 @@ const Header: React.FC<{ onSearch: (value: string) => void }> = ({ onSearch }) =
   } else {
     return (
       <header className="header">
-        <div className="header-logo">Guitar Hero</div>
-        <nav className="menu">
-          <a className="active" href="#">Álbuns</a>
-        </nav>
-                <div className="search-bar">
+  
+
+          <div className="search-bar">
           <span className="icon">🔍</span>
           <input
             type="search"
