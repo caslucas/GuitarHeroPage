@@ -7,18 +7,14 @@ body {
 }
 
 .header {
-  
   background: #000000;
   padding: 24px 32px 16px 32px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-image: url("./images/imageheader23.png");
-  
- background-repeat: no-repeat;
+  background-image: url("/images/imageheader23.png");
+  background-repeat: no-repeat;
   background-position: left;
-  
-  /* Faz a imagem inteira aparecer */
   background-size: contain;
   
 }
